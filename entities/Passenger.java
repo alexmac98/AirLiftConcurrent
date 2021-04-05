@@ -5,14 +5,19 @@ import shared.DepartureAirport;
 import shared.Plane;
 
 public class Passenger extends Thread{
+    private int ID;
     private PassengerState state;
     private DepartureAirport departureAirport;
     private Plane plane;
 
-    public Passenger(DepartureAirport departureAirport, 
-                     Plane plane) {
+    public Passenger(int ID, DepartureAirport departureAirport, Plane plane) {
+        this.ID = ID;
         this.departureAirport = departureAirport;
         this.plane = plane;
+    }
+
+    public int getID() {
+        return this.ID;
     }
 
     public PassengerState getPassengerState() {
