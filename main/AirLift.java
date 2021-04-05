@@ -19,21 +19,22 @@ public class AirLift {
             passengers[i] = new Passenger(i, departureAirport, plane);
             passengers[i].start();
         }
-
-        pilot.start();
         hostess.start();
-
+        pilot.start();
+        
+        try{
+            hostess.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        
         try{
             pilot.join();
         }catch(InterruptedException e){
             e.printStackTrace();
         }
 
-        try{
-            hostess.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
+        
 
         for(Passenger p : passengers) {
             try{
