@@ -8,9 +8,10 @@ public class DestinationAirport{
         this.repository = repository;
     }
 
-    /** Pilot Methods */
-    public void flyToDestinationPoint() {
     
+
+    public void flyToDeparturePoint() {
+        
     }
 
     

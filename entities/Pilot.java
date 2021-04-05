@@ -32,9 +32,9 @@ public class Pilot extends Thread{
         while(true){
             this.departureAirport.informPlaneReadyForBoarding();
             this.plane.waitForAllInBoard();
-            this.destinationAirport.flyToDestinationPoint();
+            this.departureAirport.flyToDestinationPoint();
             this.plane.announceArrival();
-            this.departureAirport.flyToDeparturePoint();
+            this.destinationAirport.flyToDeparturePoint();
             this.departureAirport.parkAtTransferGate();
             
         }

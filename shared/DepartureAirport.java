@@ -231,7 +231,8 @@ public class DepartureAirport{
         }
     }
 
-    public void flyToDeparturePoint() {
+    /** Pilot Methods */
+    public void flyToDestinationPoint() {
         try{
             this.mutex.lock();
         }catch(Exception e){
