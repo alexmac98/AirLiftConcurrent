@@ -31,6 +31,7 @@ public class Pilot extends Thread{
         // implement life cycle
         while(true){
             this.departureAirport.informPlaneReadyForBoarding();
+            this.plane.setExpectedPassengers(this.departureAirport.getExpectedPassengers());
             this.plane.waitForAllInBoard();
             this.departureAirport.flyToDestinationPoint();
             this.plane.announceArrival();

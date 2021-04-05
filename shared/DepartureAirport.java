@@ -26,6 +26,7 @@ public class DepartureAirport{
 
     private Queue<Passenger> passengersQueue;
 
+    private int expectedPassengers;
 
     public DepartureAirport(GRI repository) {
         this.repository = repository;
@@ -39,9 +40,14 @@ public class DepartureAirport{
         this.COND_HOSTESS = this.mutex.newCondition();
         this.COND_PILOT = this.mutex.newCondition();
 
+        this.expectedPassengers = 0;
     }
 
-    
+    /** Get Methods */
+    public int getExpectedPassengers(){
+        return this.expectedPassengers;
+    }
+
 
     /** Hostess Methods */
     public void prepareForPassBoarding() {
@@ -49,14 +55,11 @@ public class DepartureAirport{
         try{
             this.mutex.lock();
             
-            // sleep 
             this.COND_HOSTESS.await();
-            // wake up
+
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.WAIT_FOR_PASSENGER);
-            
-            // signal first passenger
-            // who is the first passenger?
+
             Passenger firstPassenger = this.passengersQueue.peek();
             int id = firstPassenger.getID();
             
@@ -76,7 +79,6 @@ public class DepartureAirport{
         Hostess hostess = null;
         try{
             this.mutex.lock();
-            
             
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.CHECK_PASSENGER);
@@ -185,6 +187,11 @@ public class DepartureAirport{
 
             this.passengersQueue.add(passenger);
             
+            if(this.expectedPassengers < Configuration.MAX_PASSENGERS_PLANE){
+                this.expectedPassengers++;
+            }
+            
+
             // sleep
             this.COND_PASSENGERS[passenger.getID()].await();
 

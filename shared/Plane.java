@@ -17,6 +17,7 @@ public class Plane {
     private Condition COND_PILOT;
 
     private int passengersBoarded;
+    private int expectedPassengers;
 
 
     private GRI repository;
@@ -31,6 +32,11 @@ public class Plane {
         this.COND_PILOT = this.mutex.newCondition();
     }
 
+    /** Set Methods */
+    public void setExpectedPassengers(int expectedPassengers) {
+        this.expectedPassengers = expectedPassengers;
+    }
+
     /** Passenger Methods */
     public void boardThePlane() {
         Passenger passenger = null;
@@ -43,6 +49,8 @@ public class Plane {
             Log.print("Plane", String.format("Passenger %d entered the plane.", id));
 
             this.passengersBoarded++;
+
+            if(this.passengersBoarded == this.expectedPassengers) this.COND_PILOT.signal();
 
         }catch(Exception e){
 
