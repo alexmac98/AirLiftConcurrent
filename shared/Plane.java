@@ -2,7 +2,7 @@ package shared;
 
 public class Plane {
 
-    public Plane() {
+    public Plane(GRI repository) {
 
     }
 

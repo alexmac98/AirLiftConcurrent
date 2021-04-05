@@ -31,14 +31,11 @@ public class Passenger extends Thread{
     @Override
     public void run() {
         // implement life cycle
-        while(true){
-            this.departureAirport.travelToAirport();
-            this.departureAirport.waitInQueue();
-            this.departureAirport.showDocuments();
-            this.plane.boardThePlane();
-            this.plane.waitForEndOfFlight();
-            this.plane.leaveThePlane();
-        }
+        this.departureAirport.travelToAirport();
+        this.departureAirport.waitInQueue();
+        this.departureAirport.showDocuments();
+        this.plane.boardThePlane();
+        this.plane.waitForEndOfFlight();
+        this.plane.leaveThePlane();
     }
-
 }

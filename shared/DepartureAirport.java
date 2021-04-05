@@ -235,6 +235,9 @@ public class DepartureAirport{
     public void flyToDestinationPoint() {
         try{
             this.mutex.lock();
+            
+            Log.print("DepartureAirport", "Pilot started flight to destination airport.");
+
         }catch(Exception e){
 
         }finally{
@@ -245,6 +248,8 @@ public class DepartureAirport{
     public void parkAtTransferGate() {
         try{
             this.mutex.lock();
+
+            Log.print("DepartureAirport", "Pilot parking at transfer gate.");
         }catch(Exception e){
 
         }finally{
