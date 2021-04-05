@@ -6,6 +6,7 @@ public class Plane {
 
     }
 
+    /** Passenger Methods */
     public void boardThePlane() {
     }
 
@@ -15,6 +16,7 @@ public class Plane {
     public void leaveThePlane() {
     }
 
+    /** Pilot methods */
     public void waitForAllInBoard() {
     }
 
