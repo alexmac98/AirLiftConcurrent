@@ -1,6 +1,7 @@
 package entities;
 
 import states.HostessState;
+import conf.Configuration;
 import shared.DepartureAirport;
 
 public class Hostess extends Thread{
@@ -24,8 +25,12 @@ public class Hostess extends Thread{
         // implement life cycle
         while(true){
             this.departureAirport.prepareForPassBoarding();
-            this.departureAirport.checkDocuments();
-            this.departureAirport.waitForNextPassenger();
+            
+            do
+            {
+                this.departureAirport.waitForNextPassenger();
+            }while(this.departureAirport.checkDocuments() <= Configuration.NUMBER_OF_PASSENGERS);
+
             this.departureAirport.informPlaneReadyToTakeOff();
             this.departureAirport.waitForNextFlight();
         }

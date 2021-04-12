@@ -14,6 +14,7 @@ public class AirLift {
         Pilot pilot = new Pilot(departureAirport, destinationAirport, plane);
         Passenger[] passengers = new Passenger[Configuration.NUMBER_OF_PASSENGERS];
         Hostess hostess = new Hostess(departureAirport);
+        
 
         for(int i = 0; i < passengers.length; i++){
             passengers[i] = new Passenger(i, departureAirport, plane);
@@ -21,6 +22,8 @@ public class AirLift {
         }
         hostess.start();
         pilot.start();
+        
+        
         
         try{
             hostess.join();

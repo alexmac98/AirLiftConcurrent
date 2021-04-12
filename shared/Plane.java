@@ -53,7 +53,7 @@ public class Plane {
             if(this.passengersBoarded == this.expectedPassengers) this.COND_PILOT.signal();
 
         }catch(Exception e){
-
+            Log.print("Error", e.toString());
         }finally{
             this.mutex.unlock();
         }
@@ -74,7 +74,7 @@ public class Plane {
 
 
         }catch(Exception e){
-
+            Log.print("Error", e.toString());
         }finally{
             this.mutex.unlock();
         }
@@ -93,8 +93,13 @@ public class Plane {
             Log.print("Plane", String.format("Passenger %d left the plane", id));
             this.passengersBoarded--;
 
-        }catch(Exception e){
+            if(this.passengersBoarded == 0) {
+                Log.print("Plane", String.format("The plane is now empty. Pilot is signaled.", id));
+                this.COND_PILOT.signal();
+            }
 
+        }catch(Exception e){
+            Log.print("Error", e.toString());
         }finally{
             this.mutex.unlock();
         }
@@ -108,12 +113,12 @@ public class Plane {
             
             pilot = (Pilot) (Thread.currentThread());
             pilot.setState(PilotState.WAIT_FOR_BOARDING);
-            Log.print("Plane", "Pilot is waiting for all passengers to enter the plane.");
+            Log.print("Plane", "Pilot is now waiting for the passengers to enter the plane.");
             
             this.COND_PILOT.await();
 
         }catch(Exception e){
-
+            Log.print("Error", e.toString());       
         }finally{
             this.mutex.unlock();
         }
@@ -123,16 +128,19 @@ public class Plane {
         Pilot pilot = null;
         try{
             this.mutex.lock();
-            Log.print("Plane", "Pilot announced arrival.");
+            Log.print("Plane", "Pilot announced arrival to all the passengers.");
             
             pilot = (Pilot) (Thread.currentThread());
             pilot.setState(PilotState.DEBOARDING);
 
             for(Condition c : this.COND_PASSENGERS) c.signal();
 
+            Log.print("Plane", "Pilot is now waiting for the passengers to leave the plane.");
+            this.COND_PILOT.await();
+
 
         }catch(Exception e){
-
+            Log.print("Error", e.toString());
         }finally{
             this.mutex.unlock();
         }

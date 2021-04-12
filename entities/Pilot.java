@@ -1,6 +1,7 @@
 package entities;
 
 import states.PilotState;
+import conf.Configuration;
 import shared.DepartureAirport;
 import shared.DestinationAirport;
 import shared.Plane;
@@ -12,9 +13,10 @@ public class Pilot extends Thread{
     private Plane plane;
 
     public Pilot(DepartureAirport departureAirport,
-                     DestinationAirport destinationAirport, 
-                     Plane plane) {
+                 DestinationAirport destinationAirport, 
+                 Plane plane) {
         this.departureAirport = departureAirport;
+        this.destinationAirport = destinationAirport;
         this.plane = plane;
     }
 
@@ -31,7 +33,7 @@ public class Pilot extends Thread{
         // implement life cycle
         while(true){
             this.departureAirport.informPlaneReadyForBoarding();
-            this.plane.setExpectedPassengers(this.departureAirport.getExpectedPassengers());
+            this.plane.setExpectedPassengers(Configuration.NUMBER_OF_PASSENGERS);
             this.plane.waitForAllInBoard();
             this.departureAirport.flyToDestinationPoint();
             this.plane.announceArrival();
