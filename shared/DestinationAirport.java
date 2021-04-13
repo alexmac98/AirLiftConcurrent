@@ -27,7 +27,7 @@ public class DestinationAirport{
             Log.print("DestinationAirport", "Pilot is flying back to the departure airport.");
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }

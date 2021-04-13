@@ -21,7 +21,8 @@ public class DepartureAirport{
     private Condition[] COND_PASSENGERS;
     private Condition COND_HOSTESS;
     private Condition COND_PILOT;
-    private Condition COND_INITIAL_SYNC;
+    private Condition COND_INITIAL_SYNC_PILOT;
+    private Condition COND_INITIAL_SYNC_HOSTESS;
 
     private GRI repository;
 
@@ -40,7 +41,8 @@ public class DepartureAirport{
         }
         this.COND_HOSTESS = this.mutex.newCondition();
         this.COND_PILOT = this.mutex.newCondition();
-        this.COND_INITIAL_SYNC = this.mutex.newCondition();
+        this.COND_INITIAL_SYNC_HOSTESS = this.mutex.newCondition();
+        this.COND_INITIAL_SYNC_PILOT = this.mutex.newCondition();
         this.checkedPassengers = 0;
     }
 
@@ -48,15 +50,13 @@ public class DepartureAirport{
     public void prepareForPassBoarding() {
         try{
             this.mutex.lock();
-            
             Log.print("InitialSync", "Hostess is waiting for initial synchronization to be completed.");
-            this.COND_INITIAL_SYNC.await();
-
+            this.COND_INITIAL_SYNC_HOSTESS.await();
             Log.print("DepartureAirport", "Hostess is waiting for pilot signal.");
-            
+            this.COND_INITIAL_SYNC_PILOT.signal();
             this.COND_HOSTESS.await();
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -79,11 +79,10 @@ public class DepartureAirport{
             this.checkedPassengers++;
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
-
         return this.checkedPassengers;
     }
 
@@ -95,14 +94,14 @@ public class DepartureAirport{
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.WAIT_FOR_PASSENGER);
             
-            Passenger firstPassenger = this.passengersQueue.remove();
+            Passenger firstPassenger = this.passengersQueue.peek();
             int id = firstPassenger.getID();
 
             this.COND_PASSENGERS[id].signal();
             Log.print("DepartureAirport", String.format("Hostess is waiting for passenger %d.", id));
             this.COND_HOSTESS.await();
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -123,7 +122,7 @@ public class DepartureAirport{
             this.checkedPassengers = 0;
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -142,7 +141,7 @@ public class DepartureAirport{
             this.COND_HOSTESS.await();
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -164,7 +163,7 @@ public class DepartureAirport{
             
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -184,14 +183,14 @@ public class DepartureAirport{
             
             if(this.passengersQueue.size() == Configuration.NUMBER_OF_PASSENGERS){
                 Log.print("InitialSync", "All the passengers are waiting in queue. Initial Synchronization completed.");
-                this.COND_INITIAL_SYNC.signalAll();
+                this.COND_INITIAL_SYNC_HOSTESS.signal();
             }
 
             // sleep
             this.COND_PASSENGERS[id].await();
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -211,7 +210,7 @@ public class DepartureAirport{
             this.COND_PASSENGERS[id].await();
             
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -223,14 +222,14 @@ public class DepartureAirport{
             this.mutex.lock();
 
             Log.print("InitialSync", "Pilot is waiting for initial synchronization to be completed.");
-            this.COND_INITIAL_SYNC.await();
+            this.COND_INITIAL_SYNC_PILOT.await();
             
             Log.print("DepartureAirport", "Pilot informs Hostess that plane is ready for boarding.");
 
             this.COND_HOSTESS.signal();
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -244,7 +243,7 @@ public class DepartureAirport{
             Log.print("DepartureAirport", "Pilot started flight to destination airport.");
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -256,7 +255,7 @@ public class DepartureAirport{
 
             Log.print("DepartureAirport", "Pilot parking at transfer gate.");
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }

@@ -53,7 +53,7 @@ public class Plane {
             if(this.passengersBoarded == this.expectedPassengers) this.COND_PILOT.signal();
 
         }catch(Exception e){
-            Log.print("Error", e.toString());
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -74,7 +74,7 @@ public class Plane {
 
 
         }catch(Exception e){
-            Log.print("Error", e.toString());
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -99,7 +99,7 @@ public class Plane {
             }
 
         }catch(Exception e){
-            Log.print("Error", e.toString());
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
@@ -118,7 +118,7 @@ public class Plane {
             this.COND_PILOT.await();
 
         }catch(Exception e){
-            Log.print("Error", e.toString());       
+            e.printStackTrace();       
         }finally{
             this.mutex.unlock();
         }
@@ -140,7 +140,7 @@ public class Plane {
 
 
         }catch(Exception e){
-            Log.print("Error", e.toString());
+            e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }

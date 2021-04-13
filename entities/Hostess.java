@@ -23,14 +23,13 @@ public class Hostess extends Thread{
     @Override
     public void run() {
         // implement life cycle
+        int checked = 0;
         while(true){
             this.departureAirport.prepareForPassBoarding();
-            
-            do
-            {
+            while(checked < Configuration.NUMBER_OF_PASSENGERS){
                 this.departureAirport.waitForNextPassenger();
-            }while(this.departureAirport.checkDocuments() <= Configuration.NUMBER_OF_PASSENGERS);
-
+                checked = this.departureAirport.checkDocuments();
+            }
             this.departureAirport.informPlaneReadyToTakeOff();
             this.departureAirport.waitForNextFlight();
         }
