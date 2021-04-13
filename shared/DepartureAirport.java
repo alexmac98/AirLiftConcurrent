@@ -2,8 +2,10 @@ package shared;
 
 import entities.Hostess;
 import entities.Passenger;
+import entities.Pilot;
 import states.HostessState;
 import states.PassengerState;
+import states.PilotState;
 import conf.Configuration;
 import utils.Log;
 
@@ -64,7 +66,9 @@ public class DepartureAirport{
             if(!this.INITIAL_SYNC_COMPLETED) this.COND_INITIAL_SYNC_HOSTESS.await();
             
             hostess = (Hostess) (Thread.currentThread());
-            hostess.setState(HostessState.READY_TO_FLY);
+            hostess.setState(HostessState.WAIT_FOR_NEXT_FLIGHT);
+            this.repository.setHostessState(HostessState.WAIT_FOR_NEXT_FLIGHT);
+            this.repository.logStatus();
 
             Log.print("DepartureAirport", "Hostess is waiting for next flight");
 
@@ -97,6 +101,8 @@ public class DepartureAirport{
 
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.CHECK_PASSENGER);
+            this.repository.setHostessState(HostessState.CHECK_PASSENGER);
+            this.repository.logStatus();
             
             Passenger firstPassenger = this.passengersQueue.remove();
             int id = firstPassenger.getID();
@@ -122,6 +128,8 @@ public class DepartureAirport{
             
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.WAIT_FOR_PASSENGER);
+            this.repository.setHostessState(HostessState.WAIT_FOR_PASSENGER);
+            this.repository.logStatus();
             
             Passenger firstPassenger = this.passengersQueue.peek();
             int id = firstPassenger.getID();
@@ -143,9 +151,10 @@ public class DepartureAirport{
 
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.READY_TO_FLY);
-            
-            Log.print("DepartureAirport", "Hostess informs plane is ready to take off.");
+            this.repository.setHostessState(HostessState.READY_TO_FLY);
+            this.repository.logStatus();
 
+            Log.print("DepartureAirport", "Hostess informs plane is ready to take off.");
             this.COND_PILOT.signal();
 
             this.currentPassengers = 0;
@@ -168,6 +177,8 @@ public class DepartureAirport{
             passenger = (Passenger) (Thread.currentThread());
             passenger.setState(PassengerState.GOING_TO_AIRPORT);
             int id = passenger.getID();
+            this.repository.setPassengerState(id, PassengerState.GOING_TO_AIRPORT);
+            this.repository.logStatus();
             
             Log.print("DepartureAirport", String.format("Passenger %d is traveling to airport.", id));
 
@@ -189,8 +200,12 @@ public class DepartureAirport{
             passenger = (Passenger) (Thread.currentThread());
             passenger.setState(PassengerState.IN_QUEUE);
             int id = passenger.getID();
+            this.repository.setPassengerState(id, PassengerState.IN_QUEUE);
+            this.repository.logStatus();
+
             this.passengersQueue.add(passenger);
-            
+            this.repository.setInQ(this.passengersQueue.size());
+
             Log.print("DepartureAirport", String.format("Passenger %d is waiting in queue.", id));
             
             if(this.passengersQueue.size() == Configuration.NUMBER_OF_PASSENGERS){
@@ -214,10 +229,8 @@ public class DepartureAirport{
 
         try{
             this.mutex.lock();
-
             passenger = (Passenger) (Thread.currentThread());
             int id = passenger.getID();
-
             Log.print("DepartureAirport", String.format("Passenger %d is showing his documents to Hostess.", id));
             this.COND_HOSTESS.signal();
             this.COND_PASSENGERS[id].await();
@@ -231,13 +244,20 @@ public class DepartureAirport{
 
     /** Pilot Methods */
     public boolean parkAtTransferGate() {
+        Pilot pilot = null;
         try{
             this.mutex.lock();
+            pilot = (Pilot) (Thread.currentThread());
+            pilot.setState(PilotState.AT_TRANSFER_GATE);
+            this.repository.setPilotState(PilotState.AT_TRANSFER_GATE);
+            this.repository.logStatus();
+
             Log.print("Debug", "PAT - Checked Passengers: " + this.checkedPassengers);
             if(this.checkedPassengers == Configuration.NUMBER_OF_PASSENGERS) return true;
             Log.print("InitialSync", "Pilot is waiting for initial synchronization to be completed.");
             if(!this.INITIAL_SYNC_COMPLETED) this.COND_INITIAL_SYNC_PILOT.await();
 
+            this.repository.setFlightNumber();
             Log.print("DepartureAirport", "Pilot parking at transfer gate.");
 
         }catch(Exception e){
@@ -250,8 +270,13 @@ public class DepartureAirport{
     }
 
     public int informPlaneReadyForBoarding() {
+        Pilot pilot = null;
         try{
             this.mutex.lock();
+            pilot = (Pilot) (Thread.currentThread());
+            pilot.setState(PilotState.READY_FOR_BOARDING);
+            this.repository.setPilotState(PilotState.READY_FOR_BOARDING);
+            this.repository.logStatus();
             Log.print("DepartureAirport", "Pilot informs Hostess that plane is ready for boarding.");
             this.COND_HOSTESS.signal();
         }catch(Exception e){
@@ -264,8 +289,13 @@ public class DepartureAirport{
 
     /** Pilot Methods */
     public void flyToDestinationPoint() {
+        Pilot pilot = null;
         try{
             this.mutex.lock();
+            pilot = (Pilot) (Thread.currentThread());
+            pilot.setState(PilotState.FLYING_FORWARD);
+            this.repository.setPilotState(PilotState.FLYING_FORWARD);
+            this.repository.logStatus();
             
             Log.print("DepartureAirport", "Pilot started flight to destination airport.");
 

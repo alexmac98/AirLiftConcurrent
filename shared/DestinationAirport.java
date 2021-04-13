@@ -23,6 +23,8 @@ public class DestinationAirport{
 
             pilot = (Pilot) (Thread.currentThread());
             pilot.setState(PilotState.FLYING_BACK);
+            this.repository.setPilotState(PilotState.FLYING_BACK);
+            this.repository.logStatus();
 
             Log.print("DestinationAirport", "Pilot is flying back to the departure airport.");
 

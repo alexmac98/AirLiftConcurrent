@@ -3,9 +3,10 @@ package main;
 import conf.Configuration;
 import entities.*;
 import shared.*;
+import java.io.*;
 
 public class AirLift {
-    public static void main(String[]args){
+    public static void main(String[]args) throws IOException {
         GRI repository = new GRI();
         DepartureAirport departureAirport = new DepartureAirport(repository);
         DestinationAirport destinationAirport = new DestinationAirport(repository);
@@ -15,6 +16,7 @@ public class AirLift {
         Passenger[] passengers = new Passenger[Configuration.NUMBER_OF_PASSENGERS];
         Hostess hostess = new Hostess(departureAirport);
         
+        repository.logHeader();
 
         for(int i = 0; i < passengers.length; i++){
             passengers[i] = new Passenger(i, departureAirport, plane);
@@ -22,8 +24,6 @@ public class AirLift {
         }
         hostess.start();
         pilot.start();
-        
-        
         
         try{
             hostess.join();
@@ -37,8 +37,6 @@ public class AirLift {
             e.printStackTrace();
         }
 
-        
-
         for(Passenger p : passengers) {
             try{
                 p.join();
@@ -47,8 +45,8 @@ public class AirLift {
             }
         }
 
-        
-
+        repository.logSummary();
+        repository.logLegend();
 
     }
 }

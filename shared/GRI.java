@@ -33,6 +33,12 @@ public class GRI {
 
     public GRI(){
         this.passengersStates = new PassengerState[Configuration.NUMBER_OF_PASSENGERS];
+        for(int i = 0; i < this.passengersStates.length; i++){
+            this.passengersStates[i] = PassengerState.GOING_TO_AIRPORT;
+        }
+        this.hostessState = HostessState.WAIT_FOR_NEXT_FLIGHT;
+        this.pilotState = PilotState.AT_TRANSFER_GATE;
+
         this.mutex = new ReentrantLock();
         this.mapFlightPassengers = new HashMap<>();
 
@@ -79,10 +85,10 @@ public class GRI {
         }
     }
 
-    public void setFlightNumber(int FN){
+    public void setFlightNumber(){
         try{
             this.mutex.lock();
-            this.FN = FN;
+            this.FN++;
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -129,77 +135,107 @@ public class GRI {
     /** Log Methods */
 
     public void logHeader() throws IOException{
-        String header = "";
-        header += "Airlift - Description of the internal state\n";
-        
-        String h1 = "PT\tHT\t";
-        String h2 = this.pilotState + "\t" + this.hostessState + "\t";
-        for(int i = 0; i < this.passengersStates.length; i++){
-            h1 += i < 10 ? "P0" + i + "\t" : "P" + i + "\t";
-            h2 += this.passengersStates[i] + "\t";
+        try{
+            this.mutex.lock();
+            String header = "";
+            header += "Airlift - Description of the internal state\n";
+            
+            String h1 = String.format("%4s  %4s  ", "PT", "HT");
+            String h2 = this.pilotState + "  " + this.hostessState + "  ";
+            for(int i = 0; i < this.passengersStates.length; i++){
+                h1 += i < 10 ? String.format("%4s  ", "P0" + i) : String.format("%4s  ", "P" + i );
+                h2 += String.format("%4s  ",this.passengersStates[i]);
+            }
+            h1 += String.format("%4s  %4s  %4s\n ", "InQ", "InF", "PTAL");
+            h2 += String.format("%4s  %4s  %4s\n", this.InQ, this.InF, this.PTAL);
+
+            header += h1 + h2;
+            this.bw.write(header);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
         }
-        h1 += "InQ\tInF\tPTAL\n";
-        h2 += this.InQ + "\t" + this.InF + "\t" + this.PTAL + "\n";
-
-        header += h1 + h2;
-
-        this.writeLog(header);
+        
     }
 
     public void logEvent(Event event, int value) throws IOException{
-        String line = "";
-        switch(event){
-            case BOARDING_STARTED:
-                line = String.format("\nFlight %d: boarding started.", this.FN);
-                break;
-            case PASSENGER_CHECKED:
-                line = String.format("\nFlight %d: passenger %d checked.", this.FN, value);
-                break;
-            case DEPARTED:
-                line = String.format("\nFlight %d: departed with %d passengers.", this.FN, value);
-                break;
-            case ARRIVED:
-                line = String.format("\nFlight %d: arrived.", this.FN);
-                break;
-            case RETURNING:
-                line = String.format("\nFlight %d: returning.", this.FN);
-                break;
+        try{
+            this.mutex.lock();
+            String line = "";
+            switch(event){
+                case BOARDING_STARTED:
+                    line = String.format("\nFlight %d: boarding started.", this.FN);
+                    break;
+                case PASSENGER_CHECKED:
+                    line = String.format("\nFlight %d: passenger %d checked.", this.FN, value);
+                    break;
+                case DEPARTED:
+                    line = String.format("\nFlight %d: departed with %d passengers.", this.FN, value);
+                    break;
+                case ARRIVED:
+                    line = String.format("\nFlight %d: arrived.", this.FN);
+                    break;
+                case RETURNING:
+                    line = String.format("\nFlight %d: returning.", this.FN);
+                    break;
+            }
+            this.bw.write(line);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
         }
-        this.writeLog(line);
     }
 
     public void logStatus() throws IOException{
-        String line = this.pilotState + "\t" + this.hostessState + "\t";
-        for(int i = 0; i < this.passengersStates.length; i++){
-            line += this.passengersStates[i] + "\t";
+        try{
+            this.mutex.lock();
+            String line = String.format("%4s  %4s  ", this.pilotState, this.hostessState);
+            for(int i = 0; i < this.passengersStates.length; i++){
+                line += String.format("%4s  ", this.passengersStates[i]);
+            }
+            line += String.format("%4s  %4s  %4s\n", this.InQ, this.InF, this.PTAL);
+            this.bw.write(line);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
         }
-        line += this.InQ + "\t" + this.InF + "\t" + this.PTAL + "\n";
-        this.writeLog(line);
     }
 
     public void logSummary() throws IOException {
-        String summary = "Airlift sum up:\n";
-
-        for(int i = 0; i < this.mapFlightPassengers.size(); i++){
-            summary += String.format("Flight %d transported %d passengers\n", i+1, this.mapFlightPassengers.get(i));
+        try{
+            this.mutex.lock();
+            String summary = "Airlift sum up:\n";
+    
+            for(int i = 0; i < this.mapFlightPassengers.size(); i++){
+                summary += String.format("Flight %d transported %d passengers\n", i+1, this.mapFlightPassengers.get(i));
+            }
+            this.bw.write(summary);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
         }
-        this.writeLog(summary);
     }
     
     public void logLegend() throws IOException {
-        String legend = "Legend:\n";
-        legend += "PT\t- state of the pilot\n";
-        legend += "HT\t- state of the hostess\n";
-        legend += "P##\t- state of the passenger ##\n";
-        legend += "InQ\t- number of passengers presently forming a queue to board the plane\n";
-        legend += "InF\t- number of passengers in the plane\n";
-        legend += "PT\t- number of passengers taht have already arrived at their destination\n";
-        
-        this.writeLog(legend);
+        try{
+            this.mutex.lock();    
+            String legend = "Legend:\n";
+            legend += "PT  - state of the pilot\n";
+            legend += "HT  - state of the hostess\n";
+            legend += "P##  - state of the passenger ##\n";
+            legend += "InQ  - number of passengers presently forming a queue to board the plane\n";
+            legend += "InF  - number of passengers in the plane\n";
+            legend += "PT  - number of passengers taht have already arrived at their destination\n";
+            this.bw.write(legend);
+            bw.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
+        }
     }
-    
-    private void writeLog(String line) throws IOException{
-        this.bw.write(line);
-    }
-
 }

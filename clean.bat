@@ -1,13 +1,13 @@
 
 echo "Cleaning conf..."
-del conf/*.class
+del conf\*.class
 echo "Cleaning entities..."
-del entities/*.class
+del entities\*.class
 echo "Cleaning main..."
-del main/*.class
+del main\*.class
 echo "Cleaning shared..."
-del shared/*.class
+del shared\*.class
 echo "Cleaning states..."
-del states/*.class
+del states\*.class
 echo "Cleaning utils..."
-del utils/*.class
+del utils\*.class

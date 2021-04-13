@@ -67,6 +67,8 @@ public class Plane {
             passenger = (Passenger) (Thread.currentThread());
             passenger.setState(PassengerState.IN_FLIGHT);
             int id = passenger.getID();
+            this.repository.setPassengerState(id, PassengerState.IN_FLIGHT);
+            this.repository.logStatus();
 
             Log.print("Plane", String.format("Passenger %d is waiting for the end of flight.", id));
 
@@ -89,6 +91,8 @@ public class Plane {
             passenger = (Passenger) (Thread.currentThread());
             passenger.setState(PassengerState.AT_DESTINATION);
             int id = passenger.getID();
+            this.repository.setPassengerState(id, PassengerState.AT_DESTINATION);
+            this.repository.logStatus();
             
             Log.print("Plane", String.format("Passenger %d left the plane", id));
             this.passengersBoarded--;
@@ -113,6 +117,9 @@ public class Plane {
             
             pilot = (Pilot) (Thread.currentThread());
             pilot.setState(PilotState.WAIT_FOR_BOARDING);
+            this.repository.setPilotState(PilotState.WAIT_FOR_BOARDING);
+            this.repository.logStatus();
+
             Log.print("Plane", "Pilot is now waiting for the passengers to enter the plane.");
             
             this.COND_PILOT.await();
@@ -132,6 +139,8 @@ public class Plane {
             
             pilot = (Pilot) (Thread.currentThread());
             pilot.setState(PilotState.DEBOARDING);
+            this.repository.setPilotState(PilotState.DEBOARDING);
+            this.repository.logStatus();
 
             for(Condition c : this.COND_PASSENGERS) c.signal();
 
