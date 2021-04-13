@@ -30,6 +30,10 @@ public class DepartureAirport{
 
     private int checkedPassengers;
 
+    private int currentPassengers;
+
+    private boolean INITIAL_SYNC_COMPLETED;
+
     public DepartureAirport(GRI repository) {
         this.repository = repository;
         this.mutex = new ReentrantLock();
@@ -44,6 +48,8 @@ public class DepartureAirport{
         this.COND_INITIAL_SYNC_HOSTESS = this.mutex.newCondition();
         this.COND_INITIAL_SYNC_PILOT = this.mutex.newCondition();
         this.checkedPassengers = 0;
+        this.currentPassengers = 0;
+        this.INITIAL_SYNC_COMPLETED = false;
     }
 
     /** Hostess Methods */
@@ -55,7 +61,7 @@ public class DepartureAirport{
             if(this.checkedPassengers == Configuration.NUMBER_OF_PASSENGERS) return true;
 
             Log.print("InitialSync", "Hostess is waiting for initial synchronization to be completed.");
-            this.COND_INITIAL_SYNC_HOSTESS.await();
+            if(!this.INITIAL_SYNC_COMPLETED) this.COND_INITIAL_SYNC_HOSTESS.await();
             
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.READY_TO_FLY);
@@ -72,7 +78,7 @@ public class DepartureAirport{
 
         return false;
     }
-    public void prepareForPassBoarding() {
+    public int prepareForPassBoarding() {
         try{
             this.mutex.lock();
             Log.print("DepartureAirport", "Hostess is preparing for pass boarding.");
@@ -81,6 +87,7 @@ public class DepartureAirport{
         }finally{
             this.mutex.unlock();
         }
+        return this.passengersQueue.size();
     }
 
     public int checkDocuments() {
@@ -98,13 +105,14 @@ public class DepartureAirport{
             this.COND_PASSENGERS[id].signal();
 
             this.checkedPassengers++;
+            this.currentPassengers++;
 
         }catch(Exception e){
             e.printStackTrace();
         }finally{
             this.mutex.unlock();
         }
-        return this.checkedPassengers;
+        return this.currentPassengers;
     }
 
     public void waitForNextPassenger() {
@@ -139,6 +147,8 @@ public class DepartureAirport{
             Log.print("DepartureAirport", "Hostess informs plane is ready to take off.");
 
             this.COND_PILOT.signal();
+
+            this.currentPassengers = 0;
 
         }catch(Exception e){
             e.printStackTrace();
@@ -186,6 +196,7 @@ public class DepartureAirport{
             if(this.passengersQueue.size() == Configuration.NUMBER_OF_PASSENGERS){
                 Log.print("InitialSync", "All the passengers are waiting in queue. Initial Synchronization completed.");
                 this.COND_INITIAL_SYNC_HOSTESS.signal();
+                this.INITIAL_SYNC_COMPLETED = true;
             }
 
             // sleep
@@ -219,17 +230,15 @@ public class DepartureAirport{
     }
 
     /** Pilot Methods */
-    public boolean informPlaneReadyForBoarding() {
+    public boolean parkAtTransferGate() {
         try{
             this.mutex.lock();
-            Log.print("Debug", "IPRFB - Checked Passengers: " + this.checkedPassengers);
+            Log.print("Debug", "PAT - Checked Passengers: " + this.checkedPassengers);
             if(this.checkedPassengers == Configuration.NUMBER_OF_PASSENGERS) return true;
             Log.print("InitialSync", "Pilot is waiting for initial synchronization to be completed.");
-            this.COND_INITIAL_SYNC_PILOT.await();
-            
-            Log.print("DepartureAirport", "Pilot informs Hostess that plane is ready for boarding.");
+            if(!this.INITIAL_SYNC_COMPLETED) this.COND_INITIAL_SYNC_PILOT.await();
 
-            this.COND_HOSTESS.signal();
+            Log.print("DepartureAirport", "Pilot parking at transfer gate.");
 
         }catch(Exception e){
             e.printStackTrace();
@@ -238,6 +247,19 @@ public class DepartureAirport{
         }
 
         return false;
+    }
+
+    public int informPlaneReadyForBoarding() {
+        try{
+            this.mutex.lock();
+            Log.print("DepartureAirport", "Pilot informs Hostess that plane is ready for boarding.");
+            this.COND_HOSTESS.signal();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
+        }
+        return this.passengersQueue.size();
     }
 
     /** Pilot Methods */
@@ -254,16 +276,6 @@ public class DepartureAirport{
         }
     }
 
-    public void parkAtTransferGate() {
-        try{
-            this.mutex.lock();
-
-            Log.print("DepartureAirport", "Pilot parking at transfer gate.");
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            this.mutex.unlock();
-        }
-    }
+    
     
 }

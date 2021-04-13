@@ -31,14 +31,17 @@ public class Pilot extends Thread{
     @Override
     public void run() {
         // implement life cycle
+        int threshold = 0;
+        int passengersInQueue = 0;
         while(true){
-            if(this.departureAirport.informPlaneReadyForBoarding()) break;
-            this.plane.setExpectedPassengers(Configuration.NUMBER_OF_PASSENGERS);
+            if(this.departureAirport.parkAtTransferGate()) break;
+            passengersInQueue = this.departureAirport.informPlaneReadyForBoarding();
+            threshold = passengersInQueue >= Configuration.MAX_PASSENGERS_PLANE ? Configuration.MAX_PASSENGERS_PLANE : passengersInQueue;
+            this.plane.setExpectedPassengers(threshold);
             this.plane.waitForAllInBoard();
             this.departureAirport.flyToDestinationPoint();
             this.plane.announceArrival();
             this.destinationAirport.flyToDeparturePoint();
-            this.departureAirport.parkAtTransferGate();
             
         }
     }
