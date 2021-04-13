@@ -6,6 +6,7 @@ import entities.Pilot;
 import states.HostessState;
 import states.PassengerState;
 import states.PilotState;
+import states.Event;
 import conf.Configuration;
 import utils.Log;
 
@@ -101,11 +102,16 @@ public class DepartureAirport{
 
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.CHECK_PASSENGER);
-            this.repository.setHostessState(HostessState.CHECK_PASSENGER);
-            this.repository.logStatus();
+            
             
             Passenger firstPassenger = this.passengersQueue.remove();
             int id = firstPassenger.getID();
+
+            this.repository.logEvent(Event.PASSENGER_CHECKED, id);
+            this.repository.setHostessState(HostessState.CHECK_PASSENGER);
+            this.repository.setInQ(this.passengersQueue.size());
+            this.repository.logStatus();
+            
 
             Log.print("DepartureAirport", String.format("Hostess is checking documents of passenger %d.", id));
             this.COND_PASSENGERS[id].signal();
@@ -273,10 +279,12 @@ public class DepartureAirport{
         Pilot pilot = null;
         try{
             this.mutex.lock();
+            this.repository.logEvent(Event.BOARDING_STARTED, -1);
             pilot = (Pilot) (Thread.currentThread());
             pilot.setState(PilotState.READY_FOR_BOARDING);
             this.repository.setPilotState(PilotState.READY_FOR_BOARDING);
             this.repository.logStatus();
+            
             Log.print("DepartureAirport", "Pilot informs Hostess that plane is ready for boarding.");
             this.COND_HOSTESS.signal();
         }catch(Exception e){

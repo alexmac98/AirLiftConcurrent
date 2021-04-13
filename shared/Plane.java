@@ -8,6 +8,7 @@ import entities.Passenger;
 import entities.Pilot;
 import states.PassengerState;
 import states.PilotState;
+import states.Event;
 import utils.Log;
 
 public class Plane {
@@ -50,7 +51,12 @@ public class Plane {
 
             this.passengersBoarded++;
 
-            if(this.passengersBoarded == this.expectedPassengers) this.COND_PILOT.signal();
+            this.repository.setInF(this.passengersBoarded);
+
+            if(this.passengersBoarded == this.expectedPassengers) {
+                this.COND_PILOT.signal();
+                this.repository.setPassengersPerFlight(this.expectedPassengers);
+            }
 
         }catch(Exception e){
             e.printStackTrace();
@@ -92,10 +98,12 @@ public class Plane {
             passenger.setState(PassengerState.AT_DESTINATION);
             int id = passenger.getID();
             this.repository.setPassengerState(id, PassengerState.AT_DESTINATION);
-            this.repository.logStatus();
             
             Log.print("Plane", String.format("Passenger %d left the plane", id));
             this.passengersBoarded--;
+            this.repository.setInF(this.passengersBoarded);
+            this.repository.setPTAL();
+            this.repository.logStatus();
 
             if(this.passengersBoarded == 0) {
                 Log.print("Plane", String.format("The plane is now empty. Pilot is signaled.", id));
@@ -123,6 +131,8 @@ public class Plane {
             Log.print("Plane", "Pilot is now waiting for the passengers to enter the plane.");
             
             this.COND_PILOT.await();
+            
+            this.repository.logEvent(Event.DEPARTED, this.passengersBoarded);
 
         }catch(Exception e){
             e.printStackTrace();       
@@ -136,10 +146,11 @@ public class Plane {
         try{
             this.mutex.lock();
             Log.print("Plane", "Pilot announced arrival to all the passengers.");
-            
+            this.repository.logEvent(Event.ARRIVED, -1);
             pilot = (Pilot) (Thread.currentThread());
             pilot.setState(PilotState.DEBOARDING);
             this.repository.setPilotState(PilotState.DEBOARDING);
+            
             this.repository.logStatus();
 
             for(Condition c : this.COND_PASSENGERS) c.signal();

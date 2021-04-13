@@ -5,13 +5,10 @@ import states.Event;
 import states.HostessState;
 import states.PassengerState;
 import states.PilotState;
-import utils.Log;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 public class GRI {
     
@@ -118,12 +115,23 @@ public class GRI {
         }
     }
 
-    public void setPTAL(int PTAL){
+    public void setPTAL(){
         try{
             this.mutex.lock();
-            this.PTAL = PTAL;
+            this.PTAL++;
         }catch(Exception e){
             e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
+        }
+    }
+
+    public void setPassengersPerFlight(int n){
+        try{
+            this.mutex.lock();
+            this.mapFlightPassengers.put(this.FN, n); 
+        }catch(Exception e){
+
         }finally{
             this.mutex.unlock();
         }
@@ -156,7 +164,6 @@ public class GRI {
         }finally{
             this.mutex.unlock();
         }
-        
     }
 
     public void logEvent(Event event, int value) throws IOException{
@@ -165,19 +172,19 @@ public class GRI {
             String line = "";
             switch(event){
                 case BOARDING_STARTED:
-                    line = String.format("\nFlight %d: boarding started.", this.FN);
+                    line = String.format("\nFlight %d: boarding started.\n", this.FN);
                     break;
                 case PASSENGER_CHECKED:
-                    line = String.format("\nFlight %d: passenger %d checked.", this.FN, value);
+                    line = String.format("\nFlight %d: passenger %d checked.\n", this.FN, value);
                     break;
                 case DEPARTED:
-                    line = String.format("\nFlight %d: departed with %d passengers.", this.FN, value);
+                    line = String.format("\nFlight %d: departed with %d passengers.\n", this.FN, value);
                     break;
                 case ARRIVED:
-                    line = String.format("\nFlight %d: arrived.", this.FN);
+                    line = String.format("\nFlight %d: arrived.\n", this.FN);
                     break;
                 case RETURNING:
-                    line = String.format("\nFlight %d: returning.", this.FN);
+                    line = String.format("\nFlight %d: returning.\n", this.FN);
                     break;
             }
             this.bw.write(line);
@@ -207,10 +214,10 @@ public class GRI {
     public void logSummary() throws IOException {
         try{
             this.mutex.lock();
-            String summary = "Airlift sum up:\n";
+            String summary = "\nAirlift sum up:\n";
     
             for(int i = 0; i < this.mapFlightPassengers.size(); i++){
-                summary += String.format("Flight %d transported %d passengers\n", i+1, this.mapFlightPassengers.get(i));
+                summary += String.format("Flight %d transported %d passengers\n", i+1, this.mapFlightPassengers.get(i+1));
             }
             this.bw.write(summary);
         }catch(Exception e){
@@ -223,13 +230,13 @@ public class GRI {
     public void logLegend() throws IOException {
         try{
             this.mutex.lock();    
-            String legend = "Legend:\n";
+            String legend = "\nLegend:\n";
             legend += "PT  - state of the pilot\n";
             legend += "HT  - state of the hostess\n";
             legend += "P##  - state of the passenger ##\n";
             legend += "InQ  - number of passengers presently forming a queue to board the plane\n";
             legend += "InF  - number of passengers in the plane\n";
-            legend += "PT  - number of passengers taht have already arrived at their destination\n";
+            legend += "PTAL  - number of passengers that have already arrived at their destination\n";
             this.bw.write(legend);
             bw.close();
         }catch(Exception e){
