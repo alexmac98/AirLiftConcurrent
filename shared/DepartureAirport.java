@@ -55,12 +55,16 @@ public class DepartureAirport{
         this.INITIAL_SYNC_COMPLETED = false;
     }
 
-    /** Hostess Methods */
+    // Hostess Methods
+    
+    /**
+     * Method that mimics the hostess waiting for the next flight.
+     * @return A flag that mentions if the day of the hostess is over or not.
+     */
     public boolean waitForNextFlight() {
         Hostess hostess = null;
         try{
             this.mutex.lock();
-            Log.print("Debug", "PFPB - Checked Passengers: " + this.checkedPassengers);
             if(this.checkedPassengers == Configuration.NUMBER_OF_PASSENGERS) return true;
 
             Log.print("InitialSync", "Hostess is waiting for initial synchronization to be completed.");
@@ -83,6 +87,11 @@ public class DepartureAirport{
 
         return false;
     }
+
+    /**
+     * Method that mimics the hostess preparing for pass boarding.
+     * @return The number of passengers currently waiting in queue.
+     */
     public int prepareForPassBoarding() {
         try{
             this.mutex.lock();
@@ -95,6 +104,9 @@ public class DepartureAirport{
         return this.passengersQueue.size();
     }
 
+    /**
+     * Method that mimics the hostess checking a passenger's documents.
+     */
     public int checkDocuments() {
         Hostess hostess = null;
         try{
@@ -127,6 +139,9 @@ public class DepartureAirport{
         return this.currentPassengers;
     }
 
+    /**
+     * Method that mimics the hostess waiting for the next passenger in queue to arrive to the balcony.
+     */
     public void waitForNextPassenger() {
         Hostess hostess = null;
         try{
@@ -150,6 +165,9 @@ public class DepartureAirport{
         }
     }
 
+    /**
+     * Method that mimics the hostess informing the pilot that the plane is ready to take off.
+     */
     public void informPlaneReadyToTakeOff() {
         Hostess hostess = null;
         try{
@@ -172,9 +190,10 @@ public class DepartureAirport{
         }
     }
 
-    
-
-    /** Passenger Methods */
+    // Passenger methods
+    /**
+     * Method that mimics the passenger travelling to airport.
+     */
     public void travelToAirport() {
         Passenger passenger = null;
         try{
@@ -198,6 +217,9 @@ public class DepartureAirport{
         }
     }
 
+    /**
+     * Method that mimics the passenger waiting in queue.
+     */
     public void waitInQueue() {
         Passenger passenger = null;
         try{
@@ -220,7 +242,6 @@ public class DepartureAirport{
                 this.INITIAL_SYNC_COMPLETED = true;
             }
 
-            // sleep
             this.COND_PASSENGERS[id].await();
 
         }catch(Exception e){
@@ -230,6 +251,9 @@ public class DepartureAirport{
         }
     }
 
+    /**
+     * Method that mimics the passenger showing the documents to the hostess.
+     */
     public void showDocuments() {
         Passenger passenger = null;
 
@@ -248,7 +272,11 @@ public class DepartureAirport{
         }
     }
 
-    /** Pilot Methods */
+    // Pilot Methods
+    /**
+     * Method that mimics the pilot parking the plane at the transfer gate.
+     * @return A flag that mentions if the work day of the pilot is over or not.
+     */
     public boolean parkAtTransferGate() {
         Pilot pilot = null;
         try{
@@ -275,6 +303,10 @@ public class DepartureAirport{
         return false;
     }
 
+    /**
+     * Method that mimics the pilot announcing that the plane is ready for boarding.
+     * @return The number of passengers currently waiting in queue.
+     */
     public int informPlaneReadyForBoarding() {
         Pilot pilot = null;
         try{
@@ -295,7 +327,9 @@ public class DepartureAirport{
         return this.passengersQueue.size();
     }
 
-    /** Pilot Methods */
+    /**
+     * Method that mimics the pilot flying to the destination point.
+     */
     public void flyToDestinationPoint() {
         Pilot pilot = null;
         try{

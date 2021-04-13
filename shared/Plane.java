@@ -33,12 +33,19 @@ public class Plane {
         this.COND_PILOT = this.mutex.newCondition();
     }
 
-    /** Set Methods */
+    // Set Methods
+    /**
+     * Method that sets the expected number of passenger for the current flight.
+     * @param expectedPassengers The expected number of passengers for the flight.
+     */
     public void setExpectedPassengers(int expectedPassengers) {
         this.expectedPassengers = expectedPassengers;
     }
 
-    /** Passenger Methods */
+    // Passenger Methods
+    /**
+     * Method that mimics the passenger boarding the plane.
+     */
     public void boardThePlane() {
         Passenger passenger = null;
         try{
@@ -65,6 +72,9 @@ public class Plane {
         }
     }
 
+    /**
+     * Method that mimics the passenger waiting for the end of the flight.
+     */
     public void waitForEndOfFlight() {
         Passenger passenger = null;
         try{
@@ -88,6 +98,9 @@ public class Plane {
         }
     }
 
+    /**
+     * Method that mimics the passenger leaving the plane.
+     */
     public void leaveThePlane() {
         Passenger passenger = null;
 
@@ -117,7 +130,10 @@ public class Plane {
         }
     }
 
-    /** Pilot methods */
+    // Pilot Methods
+    /**
+     * Method that mimics the pilot waiting for all the expected passengers to enter the plane.
+     */
     public void waitForAllInBoard() {
         Pilot pilot = null;
         try{
@@ -141,6 +157,9 @@ public class Plane {
         }
     }
 
+    /**
+     * Method that mimics the pilot announcing the arrival.
+     */
     public void announceArrival() {
         Pilot pilot = null;
         try{

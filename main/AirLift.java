@@ -6,6 +6,11 @@ import shared.*;
 import java.io.*;
 
 public class AirLift {
+    /**
+     * Method that implements the whole simulation.
+     * @param args The arguments of the method. Not used.
+     * @throws IOException
+     */
     public static void main(String[]args) throws IOException {
         GRI repository = new GRI();
         DepartureAirport departureAirport = new DepartureAirport(repository);

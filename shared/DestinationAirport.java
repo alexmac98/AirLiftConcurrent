@@ -16,7 +16,9 @@ public class DestinationAirport{
         this.repository = repository;
         this.mutex = new ReentrantLock();
     }
-
+    /**
+     * Method that mimics the pilot flying to the departure point.
+     */
     public void flyToDeparturePoint() {
         Pilot pilot = null;
         try{
