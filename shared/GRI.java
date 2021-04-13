@@ -48,7 +48,11 @@ public class GRI {
     
     }
 
-    /** Set Methods */
+    /**
+     * Method that sets the current state of a passenger.
+     * @param id The id of the passenger.
+     * @param state The wanted state for the passenger.
+     */
     public void setPassengerState(int id, PassengerState state){
         try{
             this.mutex.lock();
@@ -59,7 +63,10 @@ public class GRI {
             this.mutex.unlock();
         }
     }
-
+    /**
+     * Method that sets the current state of the hostess.
+     * @param state The wanted state for the hostess.
+     */
     public void setHostessState(HostessState state){
         try{
             this.mutex.lock();
@@ -71,6 +78,10 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that sets the current state of the pilot.
+     * @param state The wanted state for the pilot.
+     */
     public void setPilotState(PilotState state){
         try{
             this.mutex.lock();
@@ -82,6 +93,9 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that increments the flight number.
+     */
     public void setFlightNumber(){
         try{
             this.mutex.lock();
@@ -93,6 +107,10 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that sets the number of passengers currently waiting in queue.
+     * @param InQ The size of the queue.
+     */
     public void setInQ(int InQ){
         try{
             this.mutex.lock();
@@ -104,6 +122,10 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that sets the number of passengers currently in flight.
+     * @param InF The numebr of passengers in flight.
+     */
     public void setInF(int InF){
         try{
             this.mutex.lock();
@@ -115,6 +137,9 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that sets the number of passengers that have already arrived at their destination.
+     */
     public void setPTAL(){
         try{
             this.mutex.lock();
@@ -126,6 +151,10 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that sets the number of passengers per flight.
+     * @param n The number of passengers.
+     */
     public void setPassengersPerFlight(int n){
         try{
             this.mutex.lock();
@@ -137,11 +166,10 @@ public class GRI {
         }
     }
 
-    /** Get Methods */
-
-
-    /** Log Methods */
-
+    /**
+     * Method that writes the header of the log layout to a file.
+     * @throws IOException
+     */
     public void logHeader() throws IOException{
         try{
             this.mutex.lock();
@@ -166,6 +194,13 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that writes an event to the log file.
+     * There are 5 different events, namely BOARDING_STARTED, PASSENGER_CHECKED, DEPARTED, ARRIVED, RETURNING.
+     * @param event The event of the log.
+     * @param value The value to be written. Note: this value is only used as an id on PASSENGER_CHECKED and as a number on DEPARTED.  
+     * @throws IOException
+     */
     public void logEvent(Event event, int value) throws IOException{
         try{
             this.mutex.lock();
@@ -195,6 +230,11 @@ public class GRI {
         }
     }
 
+    /**
+     * Method used to write to the log file the current status of the simulation, containing information about each passenger's state, the pilot's state, the hostess's state, 
+     * the current number of passengers waiting in queue, the current number of passengers in flight, and the number of passengers that arrived to their destination.
+     * @throws IOException
+     */
     public void logStatus() throws IOException{
         try{
             this.mutex.lock();
@@ -211,6 +251,10 @@ public class GRI {
         }
     }
 
+    /**
+     * Method that writes to the log file the summary of the simulation. It consists only on information regarding the number of passengers in each occured flight.
+     * @throws IOException
+     */
     public void logSummary() throws IOException {
         try{
             this.mutex.lock();
@@ -226,17 +270,20 @@ public class GRI {
             this.mutex.unlock();
         }
     }
-    
+    /**
+     * Method that write to the log file the legend of the simulation.
+     * @throws IOException
+     */
     public void logLegend() throws IOException {
         try{
             this.mutex.lock();    
             String legend = "\nLegend:\n";
-            legend += "PT  - state of the pilot\n";
-            legend += "HT  - state of the hostess\n";
-            legend += "P##  - state of the passenger ##\n";
-            legend += "InQ  - number of passengers presently forming a queue to board the plane\n";
-            legend += "InF  - number of passengers in the plane\n";
-            legend += "PTAL  - number of passengers that have already arrived at their destination\n";
+            legend += String.format("%4s  -  state of the pilot\n", "PT");
+            legend += String.format("%4s  - state of the hostess\n", "HT");
+            legend += String.format("%4s  - state of the passenger ##\n", "P##");
+            legend += String.format("%4s  - number of passengers presently forming a queue to board the plane\n", "InQ");
+            legend += String.format("%4s  - number of passengers in the plane\n", "InF");
+            legend += String.format("%4s  - number of passengers that have already arrived at their destination\n", "PTAL");
             this.bw.write(legend);
             bw.close();
         }catch(Exception e){
