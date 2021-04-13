@@ -25,13 +25,13 @@ public class Hostess extends Thread{
         // implement life cycle
         int checked = 0;
         while(true){
+            if(this.departureAirport.waitForNextFlight()) break;
             this.departureAirport.prepareForPassBoarding();
             while(checked < Configuration.NUMBER_OF_PASSENGERS){
                 this.departureAirport.waitForNextPassenger();
                 checked = this.departureAirport.checkDocuments();
             }
             this.departureAirport.informPlaneReadyToTakeOff();
-            this.departureAirport.waitForNextFlight();
         }
     }
 

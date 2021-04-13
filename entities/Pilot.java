@@ -32,7 +32,7 @@ public class Pilot extends Thread{
     public void run() {
         // implement life cycle
         while(true){
-            this.departureAirport.informPlaneReadyForBoarding();
+            if(this.departureAirport.informPlaneReadyForBoarding()) break;
             this.plane.setExpectedPassengers(Configuration.NUMBER_OF_PASSENGERS);
             this.plane.waitForAllInBoard();
             this.departureAirport.flyToDestinationPoint();

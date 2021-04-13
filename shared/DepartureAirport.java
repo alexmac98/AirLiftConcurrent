@@ -47,14 +47,35 @@ public class DepartureAirport{
     }
 
     /** Hostess Methods */
+    public boolean waitForNextFlight() {
+        Hostess hostess = null;
+        try{
+            this.mutex.lock();
+            Log.print("Debug", "PFPB - Checked Passengers: " + this.checkedPassengers);
+            if(this.checkedPassengers == Configuration.NUMBER_OF_PASSENGERS) return true;
+
+            Log.print("InitialSync", "Hostess is waiting for initial synchronization to be completed.");
+            this.COND_INITIAL_SYNC_HOSTESS.await();
+            
+            hostess = (Hostess) (Thread.currentThread());
+            hostess.setState(HostessState.READY_TO_FLY);
+
+            Log.print("DepartureAirport", "Hostess is waiting for next flight");
+
+            this.COND_INITIAL_SYNC_PILOT.signal();
+            this.COND_HOSTESS.await();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
+        }
+
+        return false;
+    }
     public void prepareForPassBoarding() {
         try{
             this.mutex.lock();
-            Log.print("InitialSync", "Hostess is waiting for initial synchronization to be completed.");
-            this.COND_INITIAL_SYNC_HOSTESS.await();
-            Log.print("DepartureAirport", "Hostess is waiting for pilot signal.");
-            this.COND_INITIAL_SYNC_PILOT.signal();
-            this.COND_HOSTESS.await();
+            Log.print("DepartureAirport", "Hostess is preparing for pass boarding.");
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -119,8 +140,6 @@ public class DepartureAirport{
 
             this.COND_PILOT.signal();
 
-            this.checkedPassengers = 0;
-
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -128,24 +147,7 @@ public class DepartureAirport{
         }
     }
 
-    public void waitForNextFlight() {
-        Hostess hostess = null;
-        try{
-            this.mutex.lock();
-            
-            hostess = (Hostess) (Thread.currentThread());
-            hostess.setState(HostessState.READY_TO_FLY);
-
-            Log.print("DepartureAirport", "Hostess is waiting for next flight");
-
-            this.COND_HOSTESS.await();
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            this.mutex.unlock();
-        }
-    }
+    
 
     /** Passenger Methods */
     public void travelToAirport() {
@@ -217,10 +219,11 @@ public class DepartureAirport{
     }
 
     /** Pilot Methods */
-    public void informPlaneReadyForBoarding() {
+    public boolean informPlaneReadyForBoarding() {
         try{
             this.mutex.lock();
-
+            Log.print("Debug", "IPRFB - Checked Passengers: " + this.checkedPassengers);
+            if(this.checkedPassengers == Configuration.NUMBER_OF_PASSENGERS) return true;
             Log.print("InitialSync", "Pilot is waiting for initial synchronization to be completed.");
             this.COND_INITIAL_SYNC_PILOT.await();
             
@@ -233,6 +236,8 @@ public class DepartureAirport{
         }finally{
             this.mutex.unlock();
         }
+
+        return false;
     }
 
     /** Pilot Methods */
