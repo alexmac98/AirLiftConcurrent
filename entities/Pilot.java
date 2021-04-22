@@ -69,7 +69,6 @@ public class Pilot extends Thread{
             this.departureAirport.flyToDestinationPoint();
             this.plane.announceArrival();
             this.destinationAirport.flyToDeparturePoint();
-            
         }
     }
 

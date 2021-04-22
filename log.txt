@@ -1225,3 +1225,236 @@ Legend:
  InQ  - number of passengers presently forming a queue to board the plane
  InF  - number of passengers in the plane
 PTAL  - number of passengers that have already arrived at their destination
+Airlift - Description of the internal state
+  PT    HT   P00   P01   P02   P03   P04   P05   P06   P07   P08   P09   P10   P11   P12   P13   P14   P15   P16   P17   P18   P19   P20   InQ   InF  PTAL
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     0     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     1     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     2     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     3     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     4     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     5     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     6     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ    IQ    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA   GTA     7     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ    IQ    IQ    IQ   GTA   GTA   GTA   GTA   GTA   GTA   GTA     8     0     0
+ ATG  WFNF   GTA   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ    IQ    IQ    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA     9     0     0
+ ATG  WFNF    IQ   GTA   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ    IQ    IQ    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA    10     0     0
+ ATG  WFNF    IQ    IQ   GTA    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ    IQ    IQ    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA    11     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ   GTA    IQ    IQ   GTA    IQ    IQ    IQ    IQ    IQ    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA    12     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ   GTA    IQ    IQ    IQ    IQ    IQ    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA    13     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ   GTA    IQ   GTA   GTA   GTA   GTA   GTA    14     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ   GTA   GTA   GTA   GTA   GTA    15     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ   GTA   GTA   GTA   GTA    16     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ   GTA   GTA   GTA    17     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ   GTA   GTA    18     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ   GTA    19     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    20     0     0
+ ATG  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    21     0     0
+
+Flight 1: boarding started.
+ RFB  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    21     0     0
+ WFB  WFNF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    21     0     0
+ WFB   WFP    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    21     0     0
+
+Flight 1: passenger 3 checked.
+ WFB    CP    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    20     0     0
+ WFB   WFP    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    20     0     0
+
+Flight 1: passenger 5 checked.
+ WFB    CP    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    19     0     0
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    19     1     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    19     1     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    19     2     0
+
+Flight 1: passenger 6 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    18     2     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    18     2     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    18     3     0
+
+Flight 1: passenger 8 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    17     3     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    17     3     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    17     4     0
+
+Flight 1: passenger 9 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    16     4     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    16     4     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    16     5     0
+
+Flight 1: passenger 10 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    15     5     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    15     5     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    15     6     0
+
+Flight 1: passenger 11 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    14     6     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    14     6     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    14     7     0
+
+Flight 1: passenger 12 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    13     7     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    13     7     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    13     8     0
+
+Flight 1: passenger 13 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    12     8     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    IQ    12     8     0
+ WFB   WFP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    12     9     0
+
+Flight 1: passenger 15 checked.
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IQ    IQ    IQ    IQ    IQ    IQ    11     9     0
+ WFB    CP    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11    10     0
+ WFB   RTF    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11    10     0
+
+Flight 1: departed with 10 passengers.
+ WFB  WFNF    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11    10     0
+  FF  WFNF    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11    10     0
+
+Flight 1: arrived.
+   D  WFNF    IQ    IQ    IQ    IF    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11    10     0
+   D  WFNF    IQ    IQ    IQ    AD    IQ    IF    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     9     1
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    IF    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     8     2
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    IF    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     7     3
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    IF    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     6     4
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    IF    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     5     5
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    IF    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     4     6
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    IF    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     3     7
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    IF    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     2     8
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    IF    IQ    IQ    IQ    IQ    IQ    11     1     9
+   D  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    11     0    10
+
+Flight 1: returning.
+  FB  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    11     0    10
+ ATG  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    11     0    10
+
+Flight 2: boarding started.
+ RFB  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    11     0    10
+ WFB  WFNF    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    11     0    10
+ WFB   WFP    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    11     0    10
+
+Flight 2: passenger 0 checked.
+ WFB    CP    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    10     0    10
+ WFB   WFP    IQ    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    10     0    10
+ WFB   WFP    IF    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ    10     1    10
+
+Flight 2: passenger 1 checked.
+ WFB    CP    IF    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     9     1    10
+ WFB   WFP    IF    IQ    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     9     1    10
+ WFB   WFP    IF    IF    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     9     2    10
+
+Flight 2: passenger 2 checked.
+ WFB    CP    IF    IF    IQ    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     8     2    10
+ WFB    CP    IF    IF    IF    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     8     3    10
+ WFB   WFP    IF    IF    IF    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     8     3    10
+
+Flight 2: passenger 4 checked.
+ WFB    CP    IF    IF    IF    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     7     3    10
+ WFB   WFP    IF    IF    IF    AD    IQ    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     7     3    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     7     4    10
+
+Flight 2: passenger 7 checked.
+ WFB    CP    IF    IF    IF    AD    IF    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     6     4    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IQ    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     6     4    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     6     5    10
+
+Flight 2: passenger 14 checked.
+ WFB    CP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     5     5    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IQ    AD    IQ    IQ    IQ    IQ    IQ     5     5    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IQ    IQ    IQ    IQ    IQ     5     6    10
+
+Flight 2: passenger 16 checked.
+ WFB    CP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IQ    IQ    IQ    IQ    IQ     4     6    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IQ    IQ    IQ    IQ    IQ     4     6    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IQ    IQ    IQ    IQ     4     7    10
+
+Flight 2: passenger 17 checked.
+ WFB    CP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IQ    IQ    IQ    IQ     3     7    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IQ    IQ    IQ    IQ     3     7    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IQ    IQ    IQ     3     8    10
+
+Flight 2: passenger 18 checked.
+ WFB    CP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IQ    IQ    IQ     2     8    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IQ    IQ    IQ     2     8    10
+ WFB   WFP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IQ    IQ     2     9    10
+
+Flight 2: passenger 19 checked.
+ WFB    CP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IQ    IQ     1     9    10
+ WFB    CP    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1    10    10
+ WFB   RTF    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1    10    10
+ WFB  WFNF    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1    10    10
+
+Flight 2: departed with 10 passengers.
+  FF  WFNF    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1    10    10
+
+Flight 2: arrived.
+   D  WFNF    IF    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1    10    10
+   D  WFNF    AD    IF    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1     9    11
+   D  WFNF    AD    AD    IF    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1     8    12
+   D  WFNF    AD    AD    AD    AD    IF    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1     7    13
+   D  WFNF    AD    AD    AD    AD    AD    AD    AD    IF    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1     6    14
+   D  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF    AD    IF    IF    IF    IF    IQ     1     5    15
+   D  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF    IF    IF    IF    IQ     1     4    16
+   D  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF    IF    IF    IQ     1     3    17
+   D  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF    IF    IQ     1     2    18
+   D  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF    IQ     1     1    19
+   D  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IQ     1     0    20
+
+Flight 2: returning.
+  FB  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IQ     1     0    20
+ ATG  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IQ     1     0    20
+
+Flight 3: boarding started.
+ RFB  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IQ     1     0    20
+ WFB  WFNF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IQ     1     0    20
+ WFB   WFP    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IQ     1     0    20
+
+Flight 3: passenger 20 checked.
+ WFB    CP    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IQ     0     0    20
+ WFB    CP    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF     0     1    20
+ WFB   RTF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF     0     1    20
+
+Flight 3: departed with 1 passengers.
+  FF   RTF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF     0     1    20
+
+Flight 3: arrived.
+   D   RTF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    IF     0     1    20
+   D   RTF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD     0     0    21
+
+Flight 3: returning.
+  FB   RTF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD     0     0    21
+ ATG   RTF    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD    AD     0     0    21
+
+Airlift sum up:
+Flight 1 transported 10 passengers
+Flight 2 transported 10 passengers
+Flight 3 transported 1 passengers
+
+Legend:
+  PT  -  state of the pilot
+  HT  - state of the hostess
+ P##  - state of the passenger ##
+ InQ  - number of passengers presently forming a queue to board the plane
+ InF  - number of passengers in the plane
+PTAL  - number of passengers that have already arrived at their destination
