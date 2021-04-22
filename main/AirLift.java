@@ -19,7 +19,7 @@ public class AirLift {
 
         Pilot pilot = new Pilot(departureAirport, destinationAirport, plane);
         Passenger[] passengers = new Passenger[Configuration.NUMBER_OF_PASSENGERS];
-        Hostess hostess = new Hostess(departureAirport);
+        Hostess hostess = new Hostess(departureAirport, plane);
         
         repository.logHeader();
 

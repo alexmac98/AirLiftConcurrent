@@ -1,13 +1,16 @@
 package shared;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 import conf.Configuration;
 import entities.Passenger;
 import entities.Pilot;
+import entities.Hostess;
 import states.PassengerState;
 import states.PilotState;
+import states.HostessState;
 import states.Event;
 import utils.Log;
 
@@ -16,6 +19,7 @@ public class Plane {
 
     private Condition[] COND_PASSENGERS;
     private Condition COND_PILOT;
+    private Condition COND_HOSTESS;
 
     private int passengersBoarded;
     private int expectedPassengers;
@@ -31,6 +35,7 @@ public class Plane {
             this.COND_PASSENGERS[i] = this.mutex.newCondition();
         }
         this.COND_PILOT = this.mutex.newCondition();
+        this.COND_HOSTESS = this.mutex.newCondition();
     }
 
     // Set Methods
@@ -61,7 +66,8 @@ public class Plane {
             this.repository.setInF(this.passengersBoarded);
 
             if(this.passengersBoarded == this.expectedPassengers) {
-                this.COND_PILOT.signal();
+                while(!this.mutex.hasWaiters(this.COND_HOSTESS)) this.COND_PASSENGERS[id].await(500, TimeUnit.MILLISECONDS); 
+                this.COND_HOSTESS.signal();
                 this.repository.setPassengersPerFlight(this.expectedPassengers);
             }
 
@@ -177,6 +183,35 @@ public class Plane {
             Log.print("Plane", "Pilot is now waiting for the passengers to leave the plane.");
             this.COND_PILOT.await();
 
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
+        }
+    }
+
+    // Hostess methods
+    /**
+     * Method that mimics the hostess informing the pilot that the plane is ready to take off.
+     */
+    public void informPlaneReadyToTakeOff() {
+        Hostess hostess = null;
+        try{
+            this.mutex.lock();
+
+            Log.print("Plane", "Hostess is waiting for all the passengers to enter the plane");
+            this.COND_HOSTESS.await();
+
+            hostess = (Hostess) (Thread.currentThread());
+            hostess.setState(HostessState.READY_TO_FLY);
+            this.repository.setHostessState(HostessState.READY_TO_FLY);
+            this.repository.logStatus();
+            
+            Log.print("Plane", "Hostess informs plane is ready to take off.");
+            this.COND_PILOT.signal();
+
+            // this.currentPassengers = 0;
 
         }catch(Exception e){
             e.printStackTrace();

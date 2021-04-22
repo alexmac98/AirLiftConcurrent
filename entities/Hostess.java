@@ -3,6 +3,7 @@ package entities;
 import states.HostessState;
 import conf.Configuration;
 import shared.DepartureAirport;
+import shared.Plane;
 
 public class Hostess extends Thread{
     /**
@@ -14,9 +15,12 @@ public class Hostess extends Thread{
      * An instance of DepartureAirport.
      */
     private DepartureAirport departureAirport;
+    
+    private Plane plane;
 
-    public Hostess(DepartureAirport departureAirport) {
+    public Hostess(DepartureAirport departureAirport, Plane plane) {
         this.departureAirport = departureAirport;
+        this.plane = plane;
     }
 
     /**
@@ -53,8 +57,9 @@ public class Hostess extends Thread{
                 this.departureAirport.waitForNextPassenger();
                 currentPassengers = this.departureAirport.checkDocuments();
             }
-            this.departureAirport.informPlaneReadyToTakeOff();
+            this.plane.informPlaneReadyToTakeOff();
             currentPassengers = 0;
+            this.departureAirport.setCurrentPassengers(currentPassengers);
         }
     }
 }

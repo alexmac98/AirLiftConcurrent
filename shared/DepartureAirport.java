@@ -55,6 +55,18 @@ public class DepartureAirport{
         this.INITIAL_SYNC_COMPLETED = false;
     }
 
+    public void setCurrentPassengers(int currentPassengers){
+        try{
+            this.mutex.lock();
+            this.currentPassengers = currentPassengers;
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            this.mutex.unlock();
+        }
+    }
+
+
     // Hostess Methods
     
     /**
@@ -165,30 +177,7 @@ public class DepartureAirport{
         }
     }
 
-    /**
-     * Method that mimics the hostess informing the pilot that the plane is ready to take off.
-     */
-    public void informPlaneReadyToTakeOff() {
-        Hostess hostess = null;
-        try{
-            this.mutex.lock();
-
-            hostess = (Hostess) (Thread.currentThread());
-            hostess.setState(HostessState.READY_TO_FLY);
-            this.repository.setHostessState(HostessState.READY_TO_FLY);
-            this.repository.logStatus();
-
-            Log.print("DepartureAirport", "Hostess informs plane is ready to take off.");
-            this.COND_PILOT.signal();
-
-            this.currentPassengers = 0;
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            this.mutex.unlock();
-        }
-    }
+    
 
     // Passenger methods
     /**
