@@ -16,16 +16,13 @@ import utils.Log;
 
 public class Plane {
     private ReentrantLock mutex;
-
     private Condition[] COND_PASSENGERS;
     private Condition COND_PILOT;
     private Condition COND_HOSTESS;
-
     private int passengersBoarded;
     private int expectedPassengers;
-
-
     private GRI repository;
+
     public Plane(GRI repository) {
         this.repository = repository;
         this.passengersBoarded = 0;
@@ -50,6 +47,9 @@ public class Plane {
     // Passenger Methods
     /**
      * Method that mimics the passenger boarding the plane.
+     * The repository updates the number of passengers in the current plane. 
+     * If all the expected passengers are boarded, signal the hostess to inform the pilot.
+     * The repository updates the number of passengers per flight.
      */
     public void boardThePlane() {
         Passenger passenger = null;
@@ -80,6 +80,7 @@ public class Plane {
 
     /**
      * Method that mimics the passenger waiting for the end of the flight.
+     * The repository updates the state of the respective passenger to IN_FLIGHT.
      */
     public void waitForEndOfFlight() {
         Passenger passenger = null;
@@ -106,6 +107,9 @@ public class Plane {
 
     /**
      * Method that mimics the passenger leaving the plane.
+     * The repository updates the respective passenger's state to AT_DESTINATION, the number 
+     * of passengers in the current flight and the total number of passengers that arrived aat the destination.
+     * The last passenger signals the pilot.
      */
     public void leaveThePlane() {
         Passenger passenger = null;
@@ -139,6 +143,8 @@ public class Plane {
     // Pilot Methods
     /**
      * Method that mimics the pilot waiting for all the expected passengers to enter the plane.
+     * The repository updates the pilot state to WAIT_FOR_BOARDING.
+     * The pilot awaits.
      */
     public void waitForAllInBoard() {
         Pilot pilot = null;
@@ -165,6 +171,8 @@ public class Plane {
 
     /**
      * Method that mimics the pilot announcing the arrival.
+     * The repository updates the pilot state to DEBOARDING. 
+     * The pilot wakes up every passenger and waits for them all to exit the plane.
      */
     public void announceArrival() {
         Pilot pilot = null;
@@ -194,6 +202,8 @@ public class Plane {
     // Hostess methods
     /**
      * Method that mimics the hostess informing the pilot that the plane is ready to take off.
+     * The hostess waits for all the passengers to enter the plane.
+     * The repository updates the hostess state to READY_TO_FLY. The hostess signals the pilot to take off.
      */
     public void informPlaneReadyToTakeOff() {
         Hostess hostess = null;

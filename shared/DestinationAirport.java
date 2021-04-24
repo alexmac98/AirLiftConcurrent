@@ -18,6 +18,7 @@ public class DestinationAirport{
     }
     /**
      * Method that mimics the pilot flying to the departure point.
+     * The repository updates the pilot state to FLYING_BACK.
      */
     public void flyToDeparturePoint() {
         Pilot pilot = null;
@@ -29,8 +30,6 @@ public class DestinationAirport{
             pilot.setState(PilotState.FLYING_BACK);
             this.repository.setPilotState(PilotState.FLYING_BACK);
             this.repository.logStatus();
-            
-
             Log.print("DestinationAirport", "Pilot is flying back to the departure airport.");
 
         }catch(Exception e){

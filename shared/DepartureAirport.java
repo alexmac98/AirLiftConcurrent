@@ -49,14 +49,27 @@ public class DepartureAirport{
      */
     private GRI repository;
 
+    /**
+     * The queue of passengers waiting.
+     */
     private Queue<Passenger> passengersQueue;
 
+    /**
+     * Total number of passengers that are checked.
+     */
     private int checkedPassengers;
 
+    /**
+     * Number of passengers dealt for the present flight.
+     */
     private int currentPassengers;
 
+    /**
+     * Just a flag to signal when the initial sync is completed.
+     */
     private boolean INITIAL_SYNC_COMPLETED;
 
+    // constructor
     public DepartureAirport(GRI repository) {
         this.repository = repository;
         this.mutex = new ReentrantLock();
@@ -74,6 +87,11 @@ public class DepartureAirport{
         this.INITIAL_SYNC_COMPLETED = false;
     }
 
+    /**
+     * Method that sets the number of current passengers dealt
+     * for the present flight. 
+     * @param currentPassengers The number of current passengers.
+     */
     public void setCurrentPassengers(int currentPassengers){
         try{
             this.mutex.lock();
@@ -85,12 +103,15 @@ public class DepartureAirport{
         }
     }
 
-
     // Hostess Methods
     
     /**
      * Method that mimics the hostess waiting for the next flight.
-     * @return A flag that mentions if the day of the hostess is over or not.
+     * THe initial synching of the hostess happens here. Once the initial sync is completed, the hostess wakes up
+     * and starts working. The repository updates the current hostess state to WAIT_FOR_NEXT_FLIGHT, and the hostess
+     * signals the pilot that she's ready to work and then waits for further instructions.
+     * @return A flag that mentions if the day of the hostess is over or not. If the checked passengers is equal to the number
+     * of passengers in the simulation, the day is over.
      */
     public boolean waitForNextFlight() {
         Hostess hostess = null;
@@ -137,6 +158,9 @@ public class DepartureAirport{
 
     /**
      * Method that mimics the hostess checking a passenger's documents.
+     * The repository updates the state of the hostess to CHECK_PASSENGER and the 
+     * number of passengers waiting in queue. The hostess signals the first passenger
+     * in the queue, that is currently waiting for her to check his documents.
      */
     public int checkDocuments() {
         Hostess hostess = null;
@@ -145,7 +169,6 @@ public class DepartureAirport{
 
             hostess = (Hostess) (Thread.currentThread());
             hostess.setState(HostessState.CHECK_PASSENGER);
-            
             
             Passenger firstPassenger = this.passengersQueue.remove();
             int id = firstPassenger.getID();
@@ -172,6 +195,8 @@ public class DepartureAirport{
 
     /**
      * Method that mimics the hostess waiting for the next passenger in queue to arrive to the balcony.
+     * The repository updates the state of the Hostess to WAIT_FOR_PASSENGER. The hostess signals the next
+     * passenger in queue to come. The hostess waits for him to show her his documents.
      */
     public void waitForNextPassenger() {
         Hostess hostess = null;
@@ -196,11 +221,11 @@ public class DepartureAirport{
         }
     }
 
-    
-
     // Passenger methods
     /**
      * Method that mimics the passenger travelling to airport.
+     * The repository updates the respective passenger's state to GOING_TO_AIRPORT. 
+     * The passenger takes random time to get to the airport.
      */
     public void travelToAirport() {
         Passenger passenger = null;
@@ -216,8 +241,6 @@ public class DepartureAirport{
             Log.print("DepartureAirport", String.format("Passenger %d is traveling to airport.", id));
 
             this.COND_PASSENGERS[id].await(new Random().nextInt(2), TimeUnit.SECONDS);
-            
-
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -227,6 +250,12 @@ public class DepartureAirport{
 
     /**
      * Method that mimics the passenger waiting in queue.
+     * The repository updates the respective passenger's state to IN_QUEUE.
+     * The passenger is added to the queue and the repository updates the respective
+     * number of passengers waiting.
+     * If all the passengers of the simulation are waiting in queue, the initial synchronization 
+     * is completed and the hostess is woken up to start working.
+     * The passenger then waits.
      */
     public void waitInQueue() {
         Passenger passenger = null;
@@ -261,6 +290,8 @@ public class DepartureAirport{
 
     /**
      * Method that mimics the passenger showing the documents to the hostess.
+     * The passenger signals the hostess to check his documents. He then awaits for 
+     * the hostess to finish checking them.
      */
     public void showDocuments() {
         Passenger passenger = null;
@@ -283,7 +314,10 @@ public class DepartureAirport{
     // Pilot Methods
     /**
      * Method that mimics the pilot parking the plane at the transfer gate.
-     * @return A flag that mentions if the work day of the pilot is over or not.
+     * The repository updates the state of the pilot to AT_TRANSFER_GATE and the flight number.
+     * If the initial synchronization was not completed, the pilot waits.
+     * @return A flag that mentions if the work day of the pilot is over or not. If all the passengers of the simulation were dealt with, 
+     * the work day is over.
      */
     public boolean parkAtTransferGate() {
         Pilot pilot = null;
@@ -313,6 +347,8 @@ public class DepartureAirport{
 
     /**
      * Method that mimics the pilot announcing that the plane is ready for boarding.
+     * The repository updates the pilot state to READY_FOR_BOARDING. The pilot signals the hostess
+     * to start the boarding.
      * @return The number of passengers currently waiting in queue.
      */
     public int informPlaneReadyForBoarding() {
@@ -337,6 +373,7 @@ public class DepartureAirport{
 
     /**
      * Method that mimics the pilot flying to the destination point.
+     * The repository updates the state of the pilot to FLYING_FORWARD.
      */
     public void flyToDestinationPoint() {
         Pilot pilot = null;

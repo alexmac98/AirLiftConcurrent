@@ -49,6 +49,7 @@ public class Hostess extends Thread{
      *  - currentPassengers: counts the number of passengers checked;
      *  - passengersInQueue: the number of passengers currently waiting in the queue;
      *  - threshold: Is the estipulated number of passengers accepted in the current flight.
+     * <p></p>
      * The life cycle of the hostess is explained in the following way:
      * while there are flights to be made, the hostess prepares for pass boarding and the passengersInQueue variable
      * is updated; the threshold is updated as the maximum number of passengers per plane if the number of passengers waiting

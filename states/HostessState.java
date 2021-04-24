@@ -4,9 +4,24 @@ package states;
  * Definition of the Hostess states
  */
 public enum HostessState{
+    /**
+     * Hostess is waiting for next flight.
+     */
     WAIT_FOR_NEXT_FLIGHT("WFNF"),
+
+    /**
+     * Hostess is waiting for next passenger.
+     */
     WAIT_FOR_PASSENGER("WFP"),
+
+    /**
+     * Hostess is checking the passenger's documents.
+     */
     CHECK_PASSENGER("CP"),
+
+    /**
+     * Hostess knows the plane is ready to fly.
+     */
     READY_TO_FLY("RTF");
 
     private final String logRepresentation;

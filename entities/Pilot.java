@@ -57,6 +57,7 @@ public class Pilot extends Thread{
      * There are 2 main variables:
      *  - threshold: Is the estipulated number of passengers accepted in the current flight;
      *  - passengersInQueue: the number of passengers currently waiting in the queue;
+     * <p></p>
      * The life cycle of the pilot is explained in the following way:
      * While there are passengers to be transported, park at transfer gate and inform plane is ready
      * for boarding, and update passengersInQueue variable. Set the threshold variable to the max number
