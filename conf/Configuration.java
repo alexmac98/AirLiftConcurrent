@@ -1,5 +1,8 @@
 package conf;
 
+/**
+ * Configuration: contains static variables to configure the simulation.
+ */
 public class Configuration {
     /**
      * Total number of passengers in the simulation.

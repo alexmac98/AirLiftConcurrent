@@ -19,14 +19,34 @@ import java.util.Random;
 
 public class DepartureAirport{
     
+    /**
+     * The mutex of the shared region.
+     */
     private ReentrantLock mutex;
 
+    /**
+     * List of conditions to handle the passengers.
+     */
     private Condition[] COND_PASSENGERS;
+
+    /**
+     * Condition to handle the hostess.
+     */
     private Condition COND_HOSTESS;
-    private Condition COND_PILOT;
+
+    /**
+     * Condition to handle the pilot in the synching phase.
+     */
     private Condition COND_INITIAL_SYNC_PILOT;
+
+    /**
+     * Condition to handle the hostess in the synching phase.
+     */
     private Condition COND_INITIAL_SYNC_HOSTESS;
 
+    /**
+     * The repository
+     */
     private GRI repository;
 
     private Queue<Passenger> passengersQueue;
@@ -47,7 +67,6 @@ public class DepartureAirport{
             this.COND_PASSENGERS[i] = this.mutex.newCondition();
         }
         this.COND_HOSTESS = this.mutex.newCondition();
-        this.COND_PILOT = this.mutex.newCondition();
         this.COND_INITIAL_SYNC_HOSTESS = this.mutex.newCondition();
         this.COND_INITIAL_SYNC_PILOT = this.mutex.newCondition();
         this.checkedPassengers = 0;
