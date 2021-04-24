@@ -5,16 +5,21 @@ import states.PilotState;
 import states.Event;
 import utils.Log;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DestinationAirport{
 
     private GRI repository;
     private ReentrantLock mutex;
-    
+    private Condition COND_PILOT;
+
     public DestinationAirport(GRI repository){
         this.repository = repository;
         this.mutex = new ReentrantLock();
+        this.COND_PILOT = this.mutex.newCondition();
     }
     /**
      * Method that mimics the pilot flying to the departure point.
@@ -31,6 +36,7 @@ public class DestinationAirport{
             this.repository.setPilotState(PilotState.FLYING_BACK);
             this.repository.logStatus();
             Log.print("DestinationAirport", "Pilot is flying back to the departure airport.");
+            this.COND_PILOT.await(new Random().nextInt(2), TimeUnit.SECONDS);
 
         }catch(Exception e){
             e.printStackTrace();

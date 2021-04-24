@@ -35,6 +35,11 @@ public class DepartureAirport{
     private Condition COND_HOSTESS;
 
     /**
+     * Condition to handle the pilot.
+     */
+    private Condition COND_PILOT;
+
+    /**
      * Condition to handle the pilot in the synching phase.
      */
     private Condition COND_INITIAL_SYNC_PILOT;
@@ -80,6 +85,7 @@ public class DepartureAirport{
             this.COND_PASSENGERS[i] = this.mutex.newCondition();
         }
         this.COND_HOSTESS = this.mutex.newCondition();
+        this.COND_PILOT = this.mutex.newCondition();
         this.COND_INITIAL_SYNC_HOSTESS = this.mutex.newCondition();
         this.COND_INITIAL_SYNC_PILOT = this.mutex.newCondition();
         this.checkedPassengers = 0;
@@ -385,7 +391,8 @@ public class DepartureAirport{
             this.repository.logStatus();
             
             Log.print("DepartureAirport", "Pilot started flight to destination airport.");
-
+            this.COND_PILOT.await(new Random().nextInt(2), TimeUnit.SECONDS);
+            
         }catch(Exception e){
             e.printStackTrace();
         }finally{
